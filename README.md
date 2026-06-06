@@ -1,32 +1,41 @@
-# Python-Number-Guessing-Game-_-Project
-# 🎯 Number Guessing Game
 
-A simple command-line game where the player tries to guess a randomly generated number between 1 and 100. After each guess, the game provides feedback to help narrow down the answer.
+import random
 
----
+def play_game():
+    # Generate a random number between 1 and 1006
+    secret_number = random.randint(1, 100)
+    attempts = 0
 
-## 📖 Description
+    print("Welcome to the Number Guessing Game!")
+    print("I'm thinking of a number between 1 and 100.")
+    print("Can you guess it?\n")
 
-The game generates a secret random number between **1 and 100** at the start of each round. The player keeps guessing until they find the correct number, receiving "Too high" or "Too low" hints along the way. Once guessed correctly, the total number of attempts is displayed. The player can then choose to play again or quit.
+    while True:
+        # Get input from the user
+        try:
+            guess = int(input("Enter your guess: "))
+        except ValueError:
+            print("Please enter a valid number!\n")
+            continue
 
-### Features
+        attempts += 1
 
-- Random number generation each round
-- Directional hints after every guess (Too high / Too low)
-- Attempt counter that tracks how many guesses were made
-- Input validation — handles non-numeric entries gracefully
-- Play again option at the end of each round
-- Recursive replay support
+        # Check the guess
+        if guess < secret_number:
+            print("Too low! Try a higher number.\n")
+        elif guess > secret_number:
+            print("Too high! Try a lower number.\n")
+        else:
+            print(f"\n🎉 Correct! The number was {secret_number}.")
+            print(f"You got it in {attempts} attempt(s)!")
+            break
 
----
+    # Ask to play again
+    again = input("\nPlay again? (yes/no): ").lower()
+    if again == "yes" or again == "y":
+        play_game()
+    else:
+        print("Thanks for playing! Goodbye.")
 
-## 🛠️ Technologies Used
-
-| Technology | Version | Purpose |
-|------------|---------|---------|
-| Python | 3.x | Core programming language |
-| `random` (stdlib) | Built-in | Generating the secret number |
-
-No external libraries or dependencies are required — the game runs entirely on the Python standard library.
-
----
+# Run the game
+play_game()
